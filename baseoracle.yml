@@ -1,1 +1,13 @@
 ---
+- name: Comandos de SQL con módulo oracle_sql
+  hosts: mycontainer
+  #become: yes
+  gather_facts: false 
+
+  tasks:
+    - name: Comando número uno
+      oracle_sql:                               #Se debe clonar todo el repo para que incluya el módulo
+        username: "{{ user }}"                  #Ingresar en el playbook o por encuesta/CLI
+        password: "{{ password }}"              #Ingresar en el playbook o por encuesta/CLI
+        service_name: one.world                 #Cambiar por el nombre del servicio en el container
+        sql: 'select username from dba_users'   #Aquí va la sentencia a utilizar
