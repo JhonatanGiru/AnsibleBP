@@ -9,7 +9,14 @@
       copy:
         src: libreria-python/
         dest: /libreria-py/
-        mode: 777
+
+    - name: Cambiar atributos de archivo de instalación
+      file:
+        path: /libreria-py/
+        mode: 0777 
+    
+    - name: Ejecutar script instalación
+      shell: sudo -iu python3.8 /libreria-py/setup.py install
 
     - name: Comando número uno
       oracle_sql:                               #Se debe clonar todo el repo para que incluya el módulo
