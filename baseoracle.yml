@@ -1,10 +1,16 @@
 ---
 - name: Comandos de SQL con módulo oracle_sql
   hosts: mycontainer
-  #become: yes
+  become: yes
   gather_facts: false 
 
   tasks:
+    - name: Copiar librería al container
+      copy:
+        src: libreria-python/
+        dest: /libreria-py/
+        mode: 777
+
     - name: Comando número uno
       oracle_sql:                               #Se debe clonar todo el repo para que incluya el módulo
         username: "{{ user }}"                  #Ingresar en el playbook o por encuesta/CLI
