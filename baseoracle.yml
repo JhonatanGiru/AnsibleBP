@@ -17,7 +17,7 @@
     
     - name: Asegurar la instalación de python3.8
       yum:
-        name: python38
+        name: python38,gcc,python38-devel
         state: latest
 
     - name: Ejecutar script instalación
