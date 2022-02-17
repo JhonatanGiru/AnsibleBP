@@ -15,7 +15,7 @@
         path: /libreria-py/
         mode: 0777 
     
-    - name: Asegurar la instalación de python3.8
+    - name: Asegurar la instalación de los paquetes necesarios
       yum:
         name: python38,gcc,python38-devel
         state: latest
