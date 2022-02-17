@@ -1,0 +1,75 @@
+#------------------------------------------------------------------------------
+# Copyright (c) 2017, 2018, Oracle and/or its affiliates. All rights reserved.
+# This program is free software: you can modify it and/or redistribute it
+# under the terms of:
+#
+# (i)  the Universal Permissive License v 1.0 or at your option, any
+#      later version (http://oss.oracle.com/licenses/upl); and/or
+#
+# (ii) the Apache License v 2.0. (http://www.apache.org/licenses/LICENSE-2.0)
+#
+#------------------------------------------------------------------------------
+#
+# Sample nmake Makefile if you wish to build the ODPI-C test executables.
+#
+# Look at README.md for information on how to build and run the tests.
+#------------------------------------------------------------------------------
+
+BUILD_DIR = build
+INCLUDE_DIR = ..\include
+LIB_DIR = ..\lib
+
+LIBS = $(LIB_DIR)\odpic.lib
+COMMON_OBJS = $(BUILD_DIR)\TestLib.obj
+
+EXES = $(BUILD_DIR)\test_1000_context.exe \
+       $(BUILD_DIR)\test_1100_numbers.exe \
+       $(BUILD_DIR)\test_1200_conn.exe \
+       $(BUILD_DIR)\test_1300_conn_properties.exe \
+       $(BUILD_DIR)\test_1400_pool.exe \
+       $(BUILD_DIR)\test_1500_pool_properties.exe \
+       $(BUILD_DIR)\test_1600_queries.exe \
+       $(BUILD_DIR)\test_1700_transactions.exe \
+       $(BUILD_DIR)\test_1800_misc.exe \
+       $(BUILD_DIR)\test_1900_variables.exe \
+       $(BUILD_DIR)\test_2000_statements.exe \
+       $(BUILD_DIR)\test_2100_data_types.exe \
+       $(BUILD_DIR)\test_2200_object_types.exe \
+       $(BUILD_DIR)\test_2300_objects.exe \
+       $(BUILD_DIR)\test_2400_enq_options.exe \
+       $(BUILD_DIR)\test_2500_deq_options.exe \
+       $(BUILD_DIR)\test_2600_msg_props.exe \
+       $(BUILD_DIR)\test_2700_aq.exe \
+       $(BUILD_DIR)\test_2800_lobs.exe \
+       $(BUILD_DIR)\test_2900_implicit_results.exe \
+       $(BUILD_DIR)\test_3000_scroll_cursors.exe \
+       $(BUILD_DIR)\test_3100_subscriptions.exe \
+       $(BUILD_DIR)\test_3200_batch_errors.exe \
+       $(BUILD_DIR)\test_3300_dml_returning.exe \
+       $(BUILD_DIR)\test_3400_soda_db.exe \
+       $(BUILD_DIR)\test_3500_soda_coll.exe \
+       $(BUILD_DIR)\test_3600_soda_coll_cursor.exe \
+       $(BUILD_DIR)\test_3700_soda_doc.exe \
+       $(BUILD_DIR)\test_3800_soda_doc_cursor.exe \
+       $(BUILD_DIR)\test_3900_sess_tags.exe \
+       $(BUILD_DIR)\test_4000_queue.exe \
+       $(BUILD_DIR)\test_4100_binds.exe \
+       $(BUILD_DIR)\test_4200_rowids.exe \
+       $(BUILD_DIR)\test_4300_json.exe \
+       $(BUILD_DIR)\TestSuiteRunner.exe
+
+all: $(EXES) $(BUILD_DIR)
+
+$(EXES): $(BUILD_DIR) $(COMMON_OBJS) $*.obj
+
+clean:
+	@if exist $(BUILD_DIR) rmdir /S /Q $(BUILD_DIR)
+
+$(BUILD_DIR):
+	@if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+
+{.}.c{$(BUILD_DIR)}.obj ::
+	cl /nologo /c /Fo$(BUILD_DIR)\ /I$(INCLUDE_DIR) $<
+
+{$(BUILD_DIR)}.obj{$(BUILD_DIR)}.exe:
+	link /nologo /out:$@ $< $(COMMON_OBJS) $(LIBS)
