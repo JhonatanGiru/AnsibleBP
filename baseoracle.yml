@@ -15,8 +15,15 @@
         path: /libreria-py/
         mode: 0777 
     
+    - name: Asegurar la instalación de python3.8
+      yum:
+        name: python38
+        state: latest
+
     - name: Ejecutar script instalación
-      shell: sudo -iu python3.8 /libreria-py/setup.py install
+      shell: python3.8 setup.py install
+      args:
+        chdir: /libreria-py/
 
     - name: Comando número uno
       oracle_sql:                               #Se debe clonar todo el repo para que incluya el módulo
